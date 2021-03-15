@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Ninja Gold</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">    
+        <script src="{% static 'js/script.js' %}"></script>
+        
+    </head>
+    <body>
+    <div class="main">
+     <a href="/reset"> Reset Session</a>
+        <form action="/process_money" method="post">
+        {% csrf_token %}
+            <div id="gold">
+                <label for="name">Your Gold: {{request.session.gold}}</label>
+                
+            </div>
+        </form>
+
+        <div class="location">
+            <form action="/process_money" method="post">
+            {% csrf_token %}
+                <label for="name">Farm:</label>
+                <p>(earns 10 to 20 golds)</p>
+                <input type="hidden" name="building" value="farm">
+                <input type="submit" value="Find Gold!">
+            </form>
+        </div>
+
+        <div class="location">
+            <form action="/process_money" method="post">
+            {% csrf_token %}
+                    <label for="name">Cave:</label>
+                    <p>(earns 5 to 10 golds)</p>
+                    <input type="hidden" name="building" value="cave">
+                    <input type="submit" value="Find Gold!">
+            </form>
+        </div>
+
+        <div class="location">
+            <form action="/process_money" method="post">
+            {% csrf_token %}
+                    <label for="name">House:</label>
+                    <p>(earns 2 to 5 golds)</p>
+                    <input type="hidden" name="building" value="house">
+                    <input type="submit" value="Find Gold!">
+            </form>
+        </div>
+
+        <div class="location">
+            <form action="/process_money" method="post">
+            {% csrf_token %}
+                    <label for="name">Casino:</label>
+                    <p>(earns/takes 0 to 50 golds)</p>
+                    <input type="hidden" name="building" value="casino">
+                    <input type="submit" value="Find Gold!">
+            </form>
+        </div>
+
+         <div id="activities">
+            <label for="name">Activities:</label>
+            {%for activity in request.session.activities%}
+                {%if "Yay" in activity %}
+                    <p class="green">{{activity}}</p>
+                {% else %}
+                    <p class="red">{{activity}}</p>      
+                {%endif%}        
+            {%endfor%}
+        </div>
+    </div>
+    </body>
+</html>
